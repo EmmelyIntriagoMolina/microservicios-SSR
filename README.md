@@ -1,3 +1,2 @@
-# WEB
+# proyecto
 
-proyecto del segundo parcia
