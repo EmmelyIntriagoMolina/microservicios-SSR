@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <a href="/users/usuario/nuevo" class="btn btn-primary">Nuevo</a>
+                <table class="table table-striped">
+                    <thead>
+                        <th>Name</th>
+                        <th>User</th>
+                        <th>Password</th>
+                        <th colspan="2">Opciones</th>
+                    </thead>
+                    {{#usuarios}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td>{{username}}</td>
+                        <td>{{password}}</td>
+                        <td><a href="/users/usuario/modificar/{{_id}}" class="btn btn-primary">Modificar</a></td>
+                        <td><a href="/users/usuario/eliminar/{{_id}}" class="btn btn-danger">Eliminar</a></td>
+                    </tr>
+                    {{/usuarios}}
+                </table>  
+                <a href="/" class="btn btn-primary">Atrás</a>
+            </div>
+        </div>
+    </body>
+</html>

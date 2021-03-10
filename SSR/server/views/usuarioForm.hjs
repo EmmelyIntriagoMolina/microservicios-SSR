@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' />
+    </head>
+    <body>
+        <div class="container">
+            <br/>
+            <form action="/usuarioForm/usuarioForm/usuario/operar" method="POST">
+                <input type="hidden" name="_id" value="{{usuario._id}}">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{usuario.name}}" >
+                </div>
+                <div class="form-group">
+                    <label for="name">User Name:</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{usuario.username}}" >
+                </div>
+                <div class="form-group">
+                    <label for="name">Password:</label>
+                    <input type="text" class="form-control" id="password" name="password" value="{{usuario.password}}" >
+                </div>
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <a href="/users" class="btn btn-danger">Cancelar</a>
+
+            </form>
+        </div>
+    </body>
+</html>

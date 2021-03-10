@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' />
+    <style>
+      .fondo { 
+        position: relative;
+        background-color: rgba(196, 194, 194, 0.966);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fondo">
+      <center>
+        <h2>{{ title }}</h2>
+        <p>Bienvenidos al panel de administración de {{ title }} </p>
+      </center>
+    </div>
+    <div>
+      <table>
+        <tr>
+          <td>
+            <a href="/users" class="btn btn-primary">Users</a>
+          </td>
+          <td>
+            <a href="/Products" class="btn btn-primary">Products</a>
+          </td>
+          <td>
+            <a href="/orders" class="btn btn-primary">Orders</a>
+          </td>
+        </tr>
+        
+      </table>
+    </div>
+  </body>
+</html>
