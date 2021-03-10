@@ -8,6 +8,12 @@ router.get('/', async (req, res)=>{
    res.json(ordens);
 });
 
+//editar orden
+router.get('/:id', async (req, res) => {
+   const orden =  await Orden.findById(req.params.id);
+    res.json(orden);
+});
+
 //almacena ordenes  http://localhost:4000/ordens
 router.post('/', async (req, res)=>{
     const orden = new Orden(req.body);
@@ -22,7 +28,7 @@ router.post('/', async (req, res)=>{
 router.put('/:id', async (req, res) => {
     await Orden.findByIdAndUpdate(req.params.id, req.body);
     res.json({
-      status: 'Task Updated'
+      status: 'Orden Updated'
     });
   });
 
@@ -30,7 +36,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     await Orden.findByIdAndRemove(req.params.id);
     res.json({
-      status: 'Task deleted'
+      status: 'Orden deleted'
     });
   });
 module.exports = router;
