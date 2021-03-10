@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' />
+    </head>
+    <body>
+        <div class="container">
+            <br/>
+            <form action="/productoForm/productoForm/producto/operar" method="POST">
+                <input type="hidden" name="_id" value="{{producto._id}}">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{producto.name}}" >
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" class="form-control" id="description" name="description" value="{{producto.description}}" >
+                </div>
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <input type="text" class="form-control" id="category" name="category" value="{{producto.category}}" >
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="text" class="form-control" id="price" name="price" value="{{producto.price}}" >
+                </div>
+                <div class="form-group">
+                    <label for="existence">Existence:</label>
+                    <input type="text" class="form-control" id="existence" name="existence" value="{{producto.existence}}" >
+                </div>
+                <div class="form-group">
+                    <label for="img">Img:</label>
+                    <input type="text" class="form-control" id="img" name="img" value="{{producto.img}}" >
+                </div>
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <a href="/products" class="btn btn-danger">Cancelar</a>
+
+            </form>
+        </div>
+    </body>
+</html>
