@@ -9,11 +9,11 @@
         <ul class="nav nav-pills nav-fill">
 
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Orden</a>
+                <a class="nav-link" aria-current="page" href="/">Orden</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" aria-current="page"  href="/index.product.html">Pedido</a>
+                <a class="nav-link active" aria-current="page"  href="/index.product.html">Pedido</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/index.cliente.html">Cliente</a>
@@ -26,33 +26,30 @@
                 <div class="col-md-4 ">
                     <div class="card">
                         <div class="card-body  ">
-                            <h2>Ingrese una orden</h2>
-                            <form @submit.prevent="sendOrden">
+                            <h2>Ingrese una Producto</h2>
+                            <form @submit.prevent="sendProduct">
 
                                 
                                 <div class="form-group pt-2">
-                                    <input type="Number" v-model="orden.numOrder" placeholder="Numero de orden" class="form-control pt-2">
+                                    <input type="text" v-model="product.name" placeholder="Nombre Producto" class="form-control pt-2">
                                 </div>
                             
                                 <div class="form-group pt-2">
-                                    <input type="text" v-model="orden.userName" placeholder="Nombre del Cliente" class="form-control pt-2">
+                                    <input type="text" v-model="product.description" placeholder="Descripcion" class="form-control pt-2">
                                 </div>
 
                                 <div class="form-group pt-2">
-                                     <input type="Date" v-model="orden.date" placeholder="Fecha" class="form-control pt-2">
+                                     <input type="text" v-model="product.category" placeholder="Categoria" class="form-control pt-2">
                                 </div>
                                 <div class="form-group pt-2">
-                                    <input type="text" v-model="orden.productName" placeholder="Nombre Producto" class="form-control pt-2">
+                                    <input type="number" v-model="product.price" placeholder="prise" class="form-control pt-2">
                                 </div>
                                 
                                  <div class="form-group pt-2">
-                                    <input type="text" v-model="orden.codigo" placeholder="Codigo " class="form-control pt-2">
+                                    <input type="number" v-model="product.existen" placeholder=" Stock " class="form-control pt-2">
                                 </div>
 
-                                <div class="form-group pt-2">
-                                     <input type="Number" v-model="orden.cantidad" placeholder="Cantidad de productos" class="form-control pt-2">
-                                </div>
-                                
+                            
 
                                 <div class="d-grid gap-4">
                                 <template v-if="edit === false">
@@ -73,26 +70,25 @@
                     <table class="table table-bordered border-primary">
                         <thead>
                             <tr>
-                                <th>N. Orden</th>
-                                <th>Cliente</th>
-                                <th>Fecha</th>
-                                <th>Nombre Producto</th>
-                                <th>Codigo</th>
-                                <th>Cantidad</th>
+                                <th>Producto</th>
+                                <th>Descripcion</th>
+                                <th>Category</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="orden of ordenes">
-                                <td>{{orden.numOrder}}</td>
-                                <td>{{orden.userName}}</td>
-                                <td>{{orden.date}}</td>
-                                <td>{{orden.productName}}</td>
-                                <td>{{orden.codigo}}</td>
-                                <td>{{orden.cantidad}}</td>
+                            <tr v-for="product of products">
+                                <td>{{product.name}}</td>
+                                <td>{{product.description}}</td>
+                                <td>{{product.category}}</td>
+                                <td>{{product.price}}</td>
+                                <td>{{product.existence}}</td>
 
                                 <td>
-                                    <button @click="deleteOrden(orden._id)" class="btn btn-danger">Delete</button>
-                                     <button @click="editOrden(orden._id)" class="btn btn-secondary">Edit</button>
+                                    <button @click="deleteProduct(product._id)" class="btn btn-danger">Delete</button>
+                                     <button @click="editProduct(product._id)" class="btn btn-secondary">Edit</button>
                                 </td>
 
                             </tr>
@@ -108,40 +104,39 @@
 
 <script>
     
-    class Orden {
-
-        constructor( numOrder, date, userName, productName, codigo, cantidad ) {
-            this.numOrder = numOrder,
-            this.date = date,
-            this.userName = userName,
-            this.productName = productName,
-            this.codigo = codigo,
-            this.cantidad = cantidad
-            
+    class Product {
+        constructor(name, description, category, price , existence){
+            this.name = name;
+            this.description = description;
+            this.category = category;
+            this.price = price;
+            this.existence = existence;
+           
         }
     }
+
     export default {
      data() {
             return {
-                orden: new Orden(),
-                ordenes: [],
+                product: new Product(),
+                products: [],
                 edit: false,
-                ordenToEdit: ''
+                productToEdit: ''
                 
             }
         },
         created() {
-            this.getOrdens();
+            this.getProducts();
         },
         methods: {
 
             //--------AGREGAR ORDEN
-            sendOrden() {
+            sendProducts() {
                 if(this.edit === false) {
                 //console.log(this.orden);
-                    fetch('/api/ordens',{
+                    fetch('/api/products',{
                         method: 'POST',
-                        body: JSON.stringify(this.orden),
+                        body: JSON.stringify(this.product),
                         headers:{
                             'Accept': 'application/json',
                             'Content-type': 'application/json'
@@ -149,12 +144,12 @@
                     })
                     .then(res => res.json())
                     .then(data => {
-                        this.getOrdens();
+                        this.getProducts();
                     })
                 } else {
-                    fetch('/api/ordens/' + this.ordenToEdit, {
+                    fetch('/api/products/' + this.productToEdit, {
                         method: 'PUT',
-                        body: JSON.stringify(this.orden),
+                        body: JSON.stringify(this.product),
                         headers:{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
@@ -163,27 +158,27 @@
                     })
                     .then(res => res.json())
                     .then(data => {
-                        this.getOrdens();
+                        this.getProducts();
                         this.edit = false;
                     });
                 }
 
             
-                this.orden = new Orden();
+                this.product = new Product();
             },
             //-----------OBTENER ORDEN
-            getOrdens() {
-                fetch('/api/ordens')
+            getProducts() {
+                fetch('/api/products')
                 .then(res => res.json())
                 .then(data => {
-                    this.ordenes = data;
-                    console.log(this.ordenes)
+                    this.products = data;
+                    console.log(this.products)
 
                 });
             },
             //--------ELIMINAR ORDEN
-            deleteOrden(id) {
-                fetch( '/api/ordens/' + id, {
+            deleteProducts(id) {
+                fetch( '/api/products/' + id, {
                     method: 'DELETE',
                     headers:{
                         'Accept': 'application/json',
@@ -193,21 +188,20 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-                    this.getOrdens();
+                    this.getProducts();
                 });
             },
             //-------EDITAR ORDEN
-            editOrden(id) {
-                fetch( '/api/ordens/' + id)
+            editProducts(id) {
+                fetch( '/api/products/' + id)
                     .then(res => res.json())
                     .then(data => {
-                        this.orden = new Orden(data.numOrder, data.date, data.userName, data.productName, data.codigo, data.cantidad)
-                        this.ordenToEdit = data._id;
+                        this.product = new Product(data.name, data.description, data.category, data.price, data.existence)
+                        this.productToEdit = data._id;
                         this.edit = true;
                     })
             }
         }
 }
 </script>
-
 
