@@ -12,6 +12,6 @@ let OrdenSchema = new Schema({
 
 
 //luevo se crea el modelo a partir del esquema
-let Orden = mongoose.model('orders', OrdenSchema);
+let Orden = mongoose.model('orden', OrdenSchema);
 
 module.exports= Orden;

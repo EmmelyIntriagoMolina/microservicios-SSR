@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <a href="/users/usuario/nuevo" class="btn btn-primary">Nuevo</a>
-                <table class="table table-striped">
+                <table class="table table-hover">
                     <thead>
                         <th>Name</th>
                         <th>User</th>
