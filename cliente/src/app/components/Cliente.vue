@@ -13,7 +13,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link " aria-current="page"  href="/index.product.html">Pedido</a>
+                <a class="nav-link " aria-current="page"  href="/index.product.html">Productos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="/index.cliente.html">Cliente</a>
@@ -25,8 +25,8 @@
                 <div class="col-md-4 ">
                     <div class="card">
                         <div class="card-body  ">
-                            <h2>Ingrese una Producto</h2>
-                            <form @submit.prevent="sendProduct">
+                            <h2>Ingrese un Cliente</h2>
+                            <form @submit.prevent="sendClient">
 
                                 
                                 <div class="form-group pt-2">

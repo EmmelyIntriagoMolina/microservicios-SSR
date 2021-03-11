@@ -9,11 +9,11 @@
         <ul class="nav nav-pills nav-fill">
 
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/">Orden</a>
+                <a class="nav-link " aria-current="page" href="/">Orden</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page"  href="/index.product.html">Pedido</a>
+                <a class="nav-link active" aria-current="page"  href="/index.product.html">Productos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/index.cliente.html">Cliente</a>
@@ -26,30 +26,29 @@
                 <div class="col-md-4 ">
                     <div class="card">
                         <div class="card-body  ">
-                            <h2>Ingrese una Producto</h2>
-                            <form @submit.prevent="sendProduct">
+                            <h2>Ingrese Producto</h2>
+                            <form @submit.prevent="sendProducto">
 
                                 
                                 <div class="form-group pt-2">
-                                    <input type="text" v-model="product.name" placeholder="Nombre Producto" class="form-control pt-2">
+                                    <input type="text" v-model="producto.name" placeholder="Nombre de Producto" class="form-control pt-2">
                                 </div>
                             
                                 <div class="form-group pt-2">
-                                    <input type="text" v-model="product.description" placeholder="Descripcion" class="form-control pt-2">
+                                    <input type="text" v-model="producto.description" placeholder="Descripcion del producto" class="form-control pt-2">
                                 </div>
 
                                 <div class="form-group pt-2">
-                                     <input type="text" v-model="product.category" placeholder="Categoria" class="form-control pt-2">
+                                     <input type="text" v-model="producto.category" placeholder="Categoria" class="form-control pt-2">
                                 </div>
                                 <div class="form-group pt-2">
-                                    <input type="number" v-model="product.price" placeholder="prise" class="form-control pt-2">
+                                    <input type="Number" v-model="producto.price" placeholder="Precio" class="form-control pt-2">
+                                </div>
+
+                                <div class="form-group pt-2">
+                                     <input type="Number" v-model="producto.existence" placeholder="Stock" class="form-control pt-2">
                                 </div>
                                 
-                                 <div class="form-group pt-2">
-                                    <input type="number" v-model="product.existen" placeholder=" Stock " class="form-control pt-2">
-                                </div>
-
-                            
 
                                 <div class="d-grid gap-4">
                                 <template v-if="edit === false">
@@ -70,25 +69,24 @@
                     <table class="table table-bordered border-primary">
                         <thead>
                             <tr>
-                                <th>Producto</th>
+                                <th>Nombre</th>
                                 <th>Descripcion</th>
                                 <th>Category</th>
                                 <th>Precio</th>
-                                <th>Stock</th>
-                                
+                                <th>Existente</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="product of products">
-                                <td>{{product.name}}</td>
-                                <td>{{product.description}}</td>
-                                <td>{{product.category}}</td>
-                                <td>{{product.price}}</td>
-                                <td>{{product.existence}}</td>
+                            <tr v-for="producto of productos">
+                                <td>{{producto.name}}</td>
+                                <td>{{producto.description}}</td>
+                                <td>{{producto.category}}</td>
+                                <td>{{producto.price}}</td>
+                                <td>{{producto.existence}}</td>
 
                                 <td>
-                                    <button @click="deleteProduct(product._id)" class="btn btn-danger">Delete</button>
-                                     <button @click="editProduct(product._id)" class="btn btn-secondary">Edit</button>
+                                    <button @click="deleteProducto(producto._id)" class="btn btn-danger">✘</button>
+                                     <button @click="editProducto(producto._id)" class="btn btn-info">✔</button>
                                 </td>
 
                             </tr>
@@ -104,39 +102,39 @@
 
 <script>
     
-    class Product {
-        constructor(name, description, category, price , existence){
-            this.name = name;
-            this.description = description;
-            this.category = category;
-            this.price = price;
-            this.existence = existence;
-           
+    class Producto {
+
+        constructor( name, description, category, price, existence) {
+            this.name = name,
+            this.description = description,
+            this.category = category,
+            this.price = price,
+            this.existence = existence
+            
         }
     }
-
     export default {
      data() {
             return {
-                product: new Product(),
-                products: [],
+                producto: new Producto(),
+                productos: [],
                 edit: false,
-                productToEdit: ''
+                productoToEdit: ''
                 
             }
         },
         created() {
-            this.getProducts();
+            this.getProducto();
         },
         methods: {
 
             //--------AGREGAR ORDEN
-            sendProducts() {
+            sendProducto() {
                 if(this.edit === false) {
                 //console.log(this.orden);
                     fetch('/api/products',{
                         method: 'POST',
-                        body: JSON.stringify(this.product),
+                        body: JSON.stringify(this.producto),
                         headers:{
                             'Accept': 'application/json',
                             'Content-type': 'application/json'
@@ -144,12 +142,12 @@
                     })
                     .then(res => res.json())
                     .then(data => {
-                        this.getProducts();
+                        this.getProducto();
                     })
                 } else {
-                    fetch('/api/products/' + this.productToEdit, {
+                    fetch('/api/products/' + this.productoToEdit, {
                         method: 'PUT',
-                        body: JSON.stringify(this.product),
+                        body: JSON.stringify(this.producto),
                         headers:{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
@@ -158,26 +156,26 @@
                     })
                     .then(res => res.json())
                     .then(data => {
-                        this.getProducts();
+                        this.getProducto();
                         this.edit = false;
                     });
                 }
 
             
-                this.product = new Product();
+                this.producto = new Producto();
             },
             //-----------OBTENER ORDEN
-            getProducts() {
+            getProducto() {
                 fetch('/api/products')
                 .then(res => res.json())
                 .then(data => {
-                    this.products = data;
-                    console.log(this.products)
+                    this.productos = data;
+                    console.log(this.productos)
 
                 });
             },
             //--------ELIMINAR ORDEN
-            deleteProducts(id) {
+            deleteProducto(id) {
                 fetch( '/api/products/' + id, {
                     method: 'DELETE',
                     headers:{
@@ -188,20 +186,21 @@
                 })
                 .then(res => res.json())
                 .then(data => {
-                    this.getProducts();
+                    this.getProducto();
                 });
             },
             //-------EDITAR ORDEN
-            editProducts(id) {
+            editProducto(id) {
                 fetch( '/api/products/' + id)
                     .then(res => res.json())
                     .then(data => {
-                        this.product = new Product(data.name, data.description, data.category, data.price, data.existence)
-                        this.productToEdit = data._id;
+                        this.producto = new Producto(data.name, data.description, data.category, data.price, data.existence)
+                        this.productoToEdit = data._id;
                         this.edit = true;
                     })
             }
         }
 }
 </script>
+
 

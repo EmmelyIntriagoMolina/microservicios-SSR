@@ -13,7 +13,7 @@ new Vue({
 new Vue({
     render: e => e(Producto)
     
-}).$mount('#product');
+}).$mount('#producto');
 
 //vista producto
 new Vue({

@@ -13,7 +13,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" aria-current="page"  href="/index.product.html">Pedido</a>
+                <a class="nav-link" aria-current="page"  href="/index.product.html">Productos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/index.cliente.html">Cliente</a>
@@ -91,8 +91,8 @@
                                 <td>{{orden.cantidad}}</td>
 
                                 <td>
-                                    <button @click="deleteOrden(orden._id)" class="btn btn-danger">Delete</button>
-                                     <button @click="editOrden(orden._id)" class="btn btn-secondary">Edit</button>
+                                    <button @click="deleteOrden(orden._id)" class="btn btn-danger">✘</button>
+                                     <button @click="editOrden(orden._id)" class="btn btn-info">✔</button>
                                 </td>
 
                             </tr>
