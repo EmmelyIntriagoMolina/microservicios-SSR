@@ -1,28 +1,27 @@
 const express = require('express') ;
 const app = express();
-const Usuario = require('../models/user')
 
-app.get((req,res,next)=>{
-  Usuario.find((err,usuarios)=>{
-    if(err) return res.status(500).send({message:`Error al realizar la consulta ${err}`}) 
-    res.status(200).send({usuarios})
-  });  
+
+const response =
+{
+    data:[],
+    services:"User services",
+    architecture:"Microservices"
+}
+
+const logger = message=> console.log(`Mensaje desde User service:  ${message}`)
+
+app.use((req,res,next)=>{
+    response.data=[];
+    next();
 })
 
-//url http://localhost:3000/api/v2/usuario
+//url http://localhost:3000/api/v2/user
 
-app.post("/api/v2/usuario", (req,res)=>{
-      let usuario = new Usuario ({
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password
-    });
-    usuario.save(()=>{
-          
-      res.json({"Mensaje":"Usuario almacenado sin problemas!"});
-      //if(error) return res.json({ok:false,msg:"Hubo un error"})
-  })
- 
-});
+app.get("/api/v2/user", (req,res)=>{
+    response.data.push('Administrador','Invitado', 'Emmely');
+    logger("Get data user");
+    return res.send(response);
+})
 
 module.exports= app;

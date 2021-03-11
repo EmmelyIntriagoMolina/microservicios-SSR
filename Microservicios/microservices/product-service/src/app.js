@@ -1,34 +1,31 @@
 const express = require('express') ;
 const app = express();
-const Product = require('../models/product')
 
 
-const logger = message=> console.log(`Mensaje desde Book service:  ${message}`)
+const response =
+{
+    data:[],
+    services:"Product services",
+    architecture:"Microservices"
+}
 
-app.get((req,res,next)=>{
-  Product.find((err,productos)=>{
-    if(err) return res.status(500).send({message:`Error al realizar la consulta ${err}`}) 
-    res.status(200).send({productos})
-  });  
+const logger = message=> console.log(`Mensaje desde Product service:  ${message}`)
+
+app.use((req,res,next)=>{
+    response.data=[];
+    next();
 })
 
 //url http://localhost:3000/api/v2/product
 
-app.post("/api/v2/producto", (req,res)=>{
-      let producto = new Product ({
-        name: req.body.name,
-        description:req.body.description,
-        category:req.body.category,
-        price:req.body.price,
-        existence:req.body.existence,
-        img:req.body.img
-    });
-    producto.save(()=>{
-          
-      res.json({"Mensaje":"Producto almacenado sin problemas!"});
-      //if(error) return res.json({ok:false,msg:"Hubo un error"})
-  })
- 
-});
+app.get("/api/v2/product", (req,res)=>{
+    response.data.push(
+        "Manzana",
+        "Pera",
+        "Uva"
+    );
+    logger("Get data product");
+    return res.send(response);
+})
 
 module.exports= app;

@@ -5,10 +5,10 @@ services:
     build: ./monolithic
   users:
     build: ./microservices/user-service
-  orden:
-    build: ./microservices/order-service
-  producto:
+  products:
     build: ./microservices/product-service
+  order:
+    build: ./microservices/order-service
 
   nginx:
     image: nginx:latest
@@ -19,5 +19,5 @@ services:
     depends_on: 
       - monolithic
       - users
-      - orden
-      - producto
+      - products
+      - order
